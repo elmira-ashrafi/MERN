@@ -1,0 +1,68 @@
+body {
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
+.fs-small {
+  font-size: 0.75rem;
+}
+
+.text-white.ant-menu-item-selected {
+  color: var(--bs-primary) !important;
+}
+
+.anticon.anticon-sync.anticon-spin {
+  margin: 0 auto;
+}
+
+.bg-cat {
+  background-color: rgb(197, 226, 255);
+  transition: background 0.3s ease;
+}
+
+.bg-cat:hover {
+  background-color: rgb(144, 191, 237);
+}
+
+.mw-40 {
+  min-width: 40%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-65 {
+  width: 65%;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
+.ant-menu-submenu-title {
+  padding-left: 0 !important;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.ant-menu-submenu-title .ant-menu-submenu-arrow {
+  color: var(--bs-white);
+}
+
+.ant-menu-light .ant-menu-item-selected {
+  background-color: var(--bs-link-hover-color);
+}

@@ -1,0 +1,5 @@
+node_modules
+.env
+
+# user uploaded content must never be committed
+uploads/

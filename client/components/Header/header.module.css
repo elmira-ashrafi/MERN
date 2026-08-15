@@ -1,0 +1,8 @@
+.mainMenu {
+    min-width: 25%;
+}
+
+.authMenu {
+    width: auto;
+    flex-shrink: 0;
+}
