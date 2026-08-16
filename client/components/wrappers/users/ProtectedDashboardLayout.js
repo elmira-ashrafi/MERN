@@ -1,4 +1,4 @@
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import AuthOnly from "./AuthOnly";

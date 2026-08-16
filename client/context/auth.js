@@ -10,13 +10,15 @@ const initialState = {
 const Context = createContext()
 
 const rootReducer = (state, action) => {
-    switch(action.type) {
-        case "SET_USER" :
-            return {...state, user: action.payload.user, authReady: true }
-        case "LOGOUT" :
-            return {...state, user: null, authReady: true}
-        default: return state;
-    }
+  switch(action.type) {
+    case "SET_USER" :
+      return {...state, user: action.payload.user, authReady: true }
+    case "LOGOUT" :
+      return {...state, user: null, authReady: true}
+    case "SET_PICTURE" : 
+      return {...state, user: {...state.user, avatar: action.payload.avatar}}
+    default: return state;
+  }
 }
 
 const Provider = ({children}) => {
@@ -45,6 +47,7 @@ const Provider = ({children}) => {
                     dispatch({type: "LOGOUT"});
                 } else {
                     dispatch({type: "SET_USER", payload: {user}});
+                    dispatch({type: "SET_PICTURE", payload: {avatar: user.avatar}})
                 }
 
             } catch {

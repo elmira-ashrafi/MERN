@@ -59,7 +59,8 @@ const Register = () => {
 
     return (
         <GuestOnly>
-            <div style={{border: "1px solid rgba(0, 0, 0, 0.2)", padding: "20px", borderRadius: "8px", width: '30%', margin: "100px auto"}} className="container">
+            <div className="container px-2">
+              <div className="register-container border rounded-3 p-4 my-5 mx-auto col-12 col-md-5">
                 <h1 className="register text-center pt-4">provide us valid info</h1>
                 <form style={{display: "flex", flexDirection: "column", rowGap: "20px"}} onSubmit={handleRegisterFormSubmit}>
                     <label className="d-flex flex-column" htmlFor="name">
@@ -82,6 +83,7 @@ const Register = () => {
                     </button>
                     <p className="text-center">already have account? <strong><Link href="/login">Login</Link></strong></p>
                 </form>
+              </div>
             </div>
         </GuestOnly>
     )

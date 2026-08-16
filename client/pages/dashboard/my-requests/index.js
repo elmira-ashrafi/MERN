@@ -1,5 +1,5 @@
 import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashboardLayout";
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import { apiFetch, handleFetch } from "@/lib/api";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -23,11 +23,6 @@ const MyRequests = () => {
     handleFetch(setLoading, '/api/my-requests', {}, 'something went wrong! please check your network connectivity', setUserRequests)
 
   }, [user])
-  useEffect(()=> {
-    if(!userRequests) return;
-console.log(userRequests)
-console.log('userRequests')
-  }, [userRequests])
 
   const deleteRequest = async (_id) => {
     setSpinner(true);
@@ -82,15 +77,15 @@ console.log('userRequests')
 
   return (
     <ProtectedDashboardLayout>
-      <div style={{border: "1px solid rgba(0, 0, 0, 0.2)", padding: "20px", borderRadius: "8px", width: '80%', margin: "100px auto"}} className="container position-relative">
+      <div className="container border rounded-3 p-2 my-5 mx-auto col-12 position-relative">
         <h1>requests submited by you</h1>
         {spinner && <div className="position-absolute d-flex justify-content-center align-items-center end-0 start-0 top-0 bottom-0 bg-white opacity-75" ><SyncOutlined spin className="fs-1" /></div>}
 
         {loading && <div className="text-center py-5"><SyncOutlined spin className="fs-1" /></div>}
 
         {userRequests.map(req=> (
-          <div key={req._id} className="d-flex border rounded-4 p-2 px-3 mb-2">
-            <div className=" d-flex justify-content-center align-items-center">
+          <div key={req._id} className="row p-2 mx-0 border rounded-4 mb-2">
+            <div className="col-12 col-md-3 d-flex justify-content-center align-items-center">
               <Image
                 className="rounded-4"
                 width={200}
@@ -100,8 +95,8 @@ console.log('userRequests')
                 unoptimized={Boolean(req.requestImages?.[0]?.url)}
               />
             </div>
-            <div className="d-flex justify-content-around w-100 ps-4">
-              <div className="d-flex flex-column justify-content-around my-2">
+            <div className="row col-12 col-md-9 my-4 row-gap-3">
+              <div className="col-12 col-md-6 d-flex row-gap-2 flex-column justify-content-around">
                 <h3 className="mb-0"><Link href={`/dashboard/my-requests/${req._id}`}>{trimChars(req.title)}</Link></h3>
                 <div className="d-flex">status: {handleItemStatus(req.status)}</div>
                 <p className="d-flex column-gap-1">
@@ -109,7 +104,7 @@ console.log('userRequests')
                   <Link className="d-flex flex-column align-items-center" href={`/requests?category=${req.category}`}>{req.categorySlugPath}</Link>
                 </p>
               </div>
-              <div className="d-flex flex-column align-items-center justify-content-around mb-2 mt-4">
+              <div className="col-12 col-md-6 d-flex row-gap-2 flex-column align-items-center justify-content-around">
                 {handleAdminStatus(req.adminStatus)}
                 <span>proposals submited on this reuqest: {req.proposalCount}</span>
                 <div className="d-flex column-gap-2">

@@ -1,7 +1,7 @@
 import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashboardLayout.js"
 import { useContext } from "react";
 import Link from "next/link";
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import { apiFetch, getServerProps } from "@/lib/api";
 import { useRequestForm } from "@/hooks/useRequestForm";
 import RequestFormFields from "@/components/requests/RequestFormFields";

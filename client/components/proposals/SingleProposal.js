@@ -88,38 +88,54 @@ export default function SingleProposal({data, user, error}) {
 
   return(
     <ServerProtectedDashboardLayout user={user} >
-      <div className="pt-5">
-        <div className="d-flex align-items-center justify-content-center mt-5 column-gap-2 px-4 py-2">
+      <div className="container pt-5 px-2">
+        <div className="row align-items-center justify-content-center mt-5 mx-0 py-2 imgWrap">
           {hasImages && data.proposalImages.map(img => (
-            <div key={img._id || img.url} className="p-1">
-              <Image className="rounded-4" width={200} height={200} src={img.url} alt={img.alt || data._id} unoptimized />
+            <div key={img._id || img.url} className="d-flex col-6 col-md-2 py-2 px-1">
+              <Image className="rounded-4 mx-auto" width={200} height={200} src={img.url} alt={img.alt || data._id} unoptimized />
             </div>
           ))}
           {!hasImages && <Image width={200} height={200} src="/images/avatar.webp" alt="no image submitted for this request" />}
         </div>
-        <div className="d-flex justify-content-between px-4 py-2 mt-2 column-gap-4">
-          <div><span>price:</span><span>{data.price}</span></div>
-          <div>
-            {data.request 
-            ? (<>
-              <span>related request: </span>
-              <strong><Link href={`/requests/${data.request._id}`}>{data.request.title}</Link></strong>
-            </>)
-            : (<>
-              <strong className="me-2"><span>request deleted!</span></strong>
-              <span>you can safely remove your request now.</span>
-            </>)
-            }
+        <div className="row justify-content-between py-2 mx-0 mt-2 info">
+          <div className="col-12 col-md-4 d-flex ps-0">
+            <span>related request: </span>
+            <strong><Link href={`/requests/${data.request._id}`}>{data.request.title}</Link></strong>
           </div>
-          <div className="d-flex"><p>status:</p>{handleItemStatus(data.status)}</div>
+          <div className="col-6 col-md-4 d-flex justify-content-center">
+            <span>price:</span>
+            <span>{data.price}</span>
+          </div>
+          <div className="col-6 col-md-4 d-flex justify-content-end"><p>status:</p>{handleItemStatus(data.status)}</div>
         </div>
-        <div className="px-4 py-2">{data.proposalContent}</div>
+        <div className="py-2">{data.proposalContent}</div>
       </div>
       {String(user._id) === String(data.request?.requester) && !data.request?.acceptedProposal && (
         <div className="px-4">
           <button disabled={spinner} onClick={acceptProposal} className="btn btn-success mt-2">{spinner ? <SyncOutlined spin /> : "accept proposal"}</button>
         </div>
       )}
+      <style jsx>{`
+        @media (max-width: 991px) {
+          .imgWrap {
+            justify-content: flex-start !important;
+          }
+          
+          .imgWrap :global(img) {
+            max-width: 150px;
+            max-height: 150px;
+            aspect-ratio: 1/1;
+          }
+
+          .info > div:first-child{
+            justify-content: center;
+          }
+
+          .info > div:nth-child(2){
+            justify-content: start !important;
+          }
+        }
+      `}</style>
     </ServerProtectedDashboardLayout>
   )
 }

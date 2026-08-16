@@ -1,4 +1,4 @@
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import { Spin } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";

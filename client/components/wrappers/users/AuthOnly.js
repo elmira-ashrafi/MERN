@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import { Spin } from "antd";
 
 

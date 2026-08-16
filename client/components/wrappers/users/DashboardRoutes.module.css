@@ -1,0 +1,33 @@
+.sidebar {
+  transition: transform .5s ease;
+}
+
+.sidebarToggler {
+  display: none;
+  color: white;
+  transition: transform .5s ease;
+}
+
+@media screen and (max-width: 991px) {
+  .sidebar {
+    position: fixed;
+    inset: 0;
+    transform: translateX(var(--sidebar-translate));
+    padding-inline-end: 10px;
+    z-index: 10;
+  }
+  
+  .sidebarToggler {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    transform-origin: right;
+  }
+
+  .sidebarToggler svg {
+    min-width: 30px;
+    min-height: 30px;
+    color: white;
+  }
+}

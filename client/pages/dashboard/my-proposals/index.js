@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Context } from "@/context"
+import { Context } from "@/context/auth"
 import { handleFetch } from "@/lib/api";
 import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashboardLayout"
 import { SyncOutlined } from "@ant-design/icons";

@@ -9,8 +9,10 @@ import {
   currentUser,
   confirmCode,
   setNewPassword,
+  getProfilePicture
 } from "../controllers/auth.js";
 import { rateLimit } from "../utils/rateLimit.js";
+import { avatarUploadMiddleware } from "../services/upload.service.js";
 
 const router = express.Router();
 
@@ -31,13 +33,14 @@ const loginLimiter = rateLimit({
   message: "too many attempts for this account. please try again later",
 });
 
+router.get("/csrf-token", csrfToken);
+router.get("/current-user", requireAuth, currentUser);
+router.get('/profile-picture', requireAuth, getProfilePicture)
 router.post("/register", authLimiter, register);
 router.post("/login", authLimiter, loginLimiter, login);
 router.post("/logout", logout);
-router.get("/csrf-token", csrfToken);
-router.get("/current-user", requireAuth, currentUser);
 router.post("/confirm-code", authLimiter, confirmCode);
 router.post("/new-password", authLimiter, setNewPassword);
-router.post("/edit-profile", requireAuth, editProfile);
+router.post("/edit-profile", requireAuth, avatarUploadMiddleware(), editProfile);
 
 export default router;

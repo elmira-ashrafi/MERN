@@ -6,7 +6,7 @@ import { toast } from "react-toastify"
 import { SyncOutlined } from "@ant-design/icons"
 import { apiFetch } from "@/lib/api"
 import { trimChars } from "@/lib/strings"
-import { Context } from "@/context"
+import { Context } from "@/context/auth"
 
 const Requests = () => {
 
@@ -69,8 +69,8 @@ const Requests = () => {
       {!loading && requests.length === 0 && <h3 className="mt-5 text-center">no request found</h3>}
 
       {requests.map(req => (
-        <div key={req._id} className="d-flex border rounded-4 p-2 mb-2">
-          <div className="w-20 p-1 d-flex justify-content-center align-items-center">
+        <div key={req._id} className="row border rounded-4 p-2 mb-2">
+          <div className="col-12 col-md-3 p-1 d-flex justify-content-center align-items-center">
             {/* uploaded files are proxied from the api, so they skip the next image optimizer */}
             <Image
               className="m-auto"
@@ -81,7 +81,7 @@ const Requests = () => {
               unoptimized={Boolean(req.requestImages?.[0]?.url)}
             />
           </div>
-          <div className="w-80 p-2">
+          <div className="col-12 col-md-9 p-2">
             <h3 className="mb-1">
               <Link href={`/requests/${req._id}`}>{trimChars(req.title, 60)}</Link>
             </h3>

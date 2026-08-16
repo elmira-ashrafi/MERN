@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { Context } from "@/context/index.js"
+import { Context } from "@/context/auth.js"
 import { SyncOutlined } from "@ant-design/icons"
 import { toast } from "react-toastify"
 import Link from "next/link"
@@ -61,36 +61,38 @@ const Login = () => {
         }
     }
 
-    return (
-        <GuestOnly>
-            <div style={{border: "1px solid rgba(0, 0, 0, 0.2)", padding: "20px", borderRadius: "8px", width: '30%', margin: "100px auto"}} className="container">
-                <h1 className="register text-center pt-4">enter your credentials</h1>
-                <form style={{display: "flex", flexDirection: "column", rowGap: "20px"}} onSubmit={handleLoginFormSubmit}>
+  return (
+    <GuestOnly>
+      <div className="container px-2">
+        <div className="register-container border rounded-3 p-4 my-5 mx-auto col-12 col-md-5">
+          <h1 className="register text-center pt-4">enter your credentials</h1>
+          <form style={{display: "flex", flexDirection: "column", rowGap: "20px"}} onSubmit={handleLoginFormSubmit}>
 
-                    <label className="d-flex flex-column" htmlFor="email">
-                        <span className="mb-2" >please enter your email</span>
-                        <input value={email} onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="enter your email" autoComplete="email" />
-                    </label>
+              <label className="d-flex flex-column" htmlFor="email">
+                <span className="mb-2" >please enter your email</span>
+                <input value={email} onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="enter your email" autoComplete="email" />
+              </label>
 
-                    <label className="d-flex flex-column" htmlFor="password">
-                        <span className="mb-2" >please enter your password</span>
-                        <input value={password} onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="enter your password" autoComplete="current-password" />
-                    </label>
+              <label className="d-flex flex-column" htmlFor="password">
+                <span className="mb-2" >please enter your password</span>
+                <input value={password} onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="enter your password" autoComplete="current-password" />
+              </label>
 
-                    <label className="d-flex align-items-center" htmlFor="remember">
-                        <span className="me-1">Remember?</span>
-                        <input checked={remember} onChange={e => setRemember(!remember)} type="checkbox" name="remember" id="remember" />
-                    </label>
+              <label className="d-flex align-items-center" htmlFor="remember">
+                <span className="me-1">Remember?</span>
+                <input checked={remember} onChange={e => setRemember(!remember)} type="checkbox" name="remember" id="remember" />
+              </label>
 
-                    <button disabled={!email || !password || spinner} type="submit" className="btn btn-block btn-primary p-2">
-                        {spinner ? <SyncOutlined spin /> : "submit"}
-                    </button>
-                    <p className="text-center mb-0">don&apos;t have an account? <strong><Link href="/register">register</Link></strong></p>
-                    <p className="text-center">forgot your password? <strong><Link href="/forgot-password">reset password</Link></strong></p>
-                </form>
-            </div>
-        </GuestOnly>
-    )
+              <button disabled={!email || !password || spinner} type="submit" className="btn btn-block btn-primary p-2">
+                  {spinner ? <SyncOutlined spin /> : "submit"}
+              </button>
+              <p className="text-center mb-0">don&apos;t have an account? <strong><Link href="/register">register</Link></strong></p>
+              <p className="text-center">forgot your password? <strong><Link href="/forgot-password">reset password</Link></strong></p>
+          </form>
+        </div>
+      </div>
+    </GuestOnly>
+  )
 }
 
 export default Login

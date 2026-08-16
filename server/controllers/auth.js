@@ -8,6 +8,7 @@ import Province from "../models/province.js"
 import City from "../models/city.js"
 import { hashPassword, comparePasswords } from "../utils/auth.js"
 import AppError from "../utils/appError.js"
+import { processAvatarImage } from "../services/upload.service.js"
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 6;
@@ -294,6 +295,7 @@ export const setNewPassword = async (req, res, next) => {
 export const editProfile = async (req, res, next) => {
     try {
         const {name, email, currentPassword, password, confirmPassword, phone, userCountry, userProvince, userCity} = req.body
+        const avatar = req.file
 
         for(const value of [userCountry, userProvince, userCity]) {
             if(value && !mongoose.isValidObjectId(value)) {
@@ -383,6 +385,11 @@ export const editProfile = async (req, res, next) => {
             user.phoneNumber = phone.trim() || undefined;
         }
 
+        if(avatar) {
+          const {url} = await processAvatarImage({file: avatar, userId: user._id});
+          user.avatar = url
+        }
+
         await user.save();
 
         /*
@@ -401,4 +408,18 @@ export const editProfile = async (req, res, next) => {
         }
         return next(err);
     }
+}
+
+export const getProfilePicture = async(req, res, next) => {
+  try {
+    
+    const user = await User.findOne({_id: req.auth._id}).exec()
+
+    if(!user) return res.status(400).json({ok: false, message: "invalid user"});
+
+    return res.status(200).json({ok: true, message: user})
+    
+  } catch(err) {
+    next(Err);
+  }
 }

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Link from "next/link";
-import { Context } from "@/context";
+import { Context } from "@/context/auth";
 import HeroVideo from "@/components/HeroVideo";
 
 const Index = () => {
