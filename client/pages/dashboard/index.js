@@ -22,16 +22,16 @@ const Dashboard = () => {
 
     return (
         <ProtectedDashboardLayout>
-            <div className="row px-2 row-gap-2">
+            <div className="row px-2 row-gap-2 justify-content-center column-gap-2">
               <h1>welcome to dashboard</h1>
               {requestSpinner ? <SyncOutlined spin /> : (
-                <div className="col-12 col-md-6 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
+                <div className="col-12 col-md-3 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
                   <strong>{requests.length}</strong>
                   <span>request(s) submitted</span>
                 </div>
               )}
               {proposalSpinner ? <SyncOutlined spin /> : (
-                <div className="col-12 col-md-6 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
+                <div className="col-12 col-md-3 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
                   <strong>{proposals.length}</strong>
                   <span>proposal(s) appealed</span>
                 </div>
