@@ -2,6 +2,15 @@
 
 A local marketplace where requesters post requests for a **product** or a **service**, providers compete by submitting **proposals**, and the requester picks the one they like best. Providers must apply and be approved by an admin before they can submit proposals; requests are also moderated before going public.
 
+## Live Demo
+[mern.ashrafisolutions.com](https://mern.ashrafisolutions.com/)
+
+## Screenshots
+
+| Home | User Dashboard | Admin Dashboard |
+|------|----------------|-----------------|
+|![Home sview](docs/mern-home.png)|![user dashboard view](docs/mern-user-dashboard.png)|![admin dashboard view](docs/mern-admin-dashboard.png)|
+
 ## Tech stack
 
 - **Client**: Next.js 16 (Pages Router), React 19, Ant Design, Bootstrap 5, Remotion (interactive homepage hero video)
