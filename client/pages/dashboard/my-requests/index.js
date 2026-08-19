@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { trimChars } from "@/lib/strings";
+import { getErrorMessage, trimChars } from "@/lib/strings";
 
 const MyRequests = () => {
 
@@ -43,7 +43,7 @@ const MyRequests = () => {
         handleFetch(setLoading, '/api/my-requests', {}, 'something went wrong! please check your network connectivity', setUserRequests)
       }
     } catch {
-      toast.error("something went wrong! please try again");
+      toast.error(getErrorMessage(err));
     } finally {
       setSpinner(false)
     }

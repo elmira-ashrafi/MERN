@@ -5,6 +5,7 @@ import { toast } from "react-toastify"
 import Link from "next/link"
 import { apiFetch } from "@/lib/api"
 import GuestOnly from '@/components/wrappers/users/GuestOnly.js'
+import { getErrorMessage } from "@/lib/strings"
 
 const Login = () => {
 
@@ -55,7 +56,7 @@ const Login = () => {
             dispatch({type: "SET_USER", payload: {user: data.user}});
 
         } catch(err) {
-            toast.error(err.message, {position: "top-left"});
+            toast.error(getErrorMessage(err), {position: "top-left"});
         } finally {
             setSpinner(false);
         }

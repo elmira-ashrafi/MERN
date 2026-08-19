@@ -5,7 +5,7 @@ import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashb
 import { SyncOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { trimChars } from "@/lib/strings";
+import { getErrorMessage, trimChars } from "@/lib/strings";
 import { toast } from "react-toastify";
 import { apiFetch } from "@/lib/api";
 
@@ -44,7 +44,7 @@ const MyProposals = () => {
         handleFetch(setLoading, '/api/my-proposals', {}, 'something went wrong! please check your connectivity', setProposals);
       }
     } catch(err) {
-      toast.error("something went wrong! please try again");
+      toast.error(getErrorMessage(err));
     } finally {
       setSpinner(false)
     }

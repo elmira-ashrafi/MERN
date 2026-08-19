@@ -5,7 +5,7 @@ import Link from "next/link"
 import { toast } from "react-toastify"
 import { SyncOutlined } from "@ant-design/icons"
 import { apiFetch } from "@/lib/api"
-import { trimChars } from "@/lib/strings"
+import { getErrorMessage, trimChars } from "@/lib/strings"
 import { Context } from "@/context/auth"
 
 const Requests = () => {
@@ -46,8 +46,8 @@ const Requests = () => {
         setRequests(Array.isArray(data.message) ? data.message : []);
         setPageInfo({page: data.page, pages: data.pages, total: data.total});
 
-      } catch {
-        toast.error("something went wrong! check your network connectivity");
+      } catch(err) {
+        toast.error(getErrorMessage(err));
         setRequests([]);
       } finally {
         setLoading(false);

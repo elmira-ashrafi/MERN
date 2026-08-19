@@ -82,6 +82,14 @@ export async function apiFetch(path, options={}) {
         onUnAuthorized();
     }
 
+    if(res.status === 500) {
+      throw new Error("something went wrong! please try again later");
+    }
+
+    if(res.status === 413) {
+      throw new Error("your file is too large! maximum file size is 5 MB");
+    }
+
     return res;
 }
 

@@ -6,6 +6,7 @@ import { handleFetch } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
+import { getErrorMessage } from "@/lib/strings";
 
 export default function AdminCategories() {
   
@@ -52,7 +53,7 @@ export default function AdminCategories() {
       setParent('')
 
     } catch(err) {
-      toast.error(err)
+      toast.error(getErrorMessage(err))
     }
     finally {
       setSpinner(false)

@@ -179,7 +179,6 @@ console.log(user)
                 setConfirmPassword('');
             }
         } catch(err) {
-            console.log(err);
             toast.error(globalFetchFailureMsg);
         } finally {
             setBtnSpinner(false);

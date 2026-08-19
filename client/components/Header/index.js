@@ -7,6 +7,7 @@ import { useContext } from "react"
 import { toast } from "react-toastify"
 import styles from "./header.module.css"
 import { apiFetch } from "@/lib/api"
+import { getErrorMessage } from "@/lib/strings"
 
 const Header = () => {
 
@@ -47,8 +48,7 @@ const Header = () => {
             router.push('/login');
 
         } catch (err) {
-            console.log(err);
-            toast.error('an error occured');
+            toast.error(getErrorMessage(err));
         }
     }
 

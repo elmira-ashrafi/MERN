@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { apiFetch } from "@/lib/api";
+import { getErrorMessage } from "@/lib/strings";
 
 export default function useProposalForm(
   providerId, requestId, requester, path,
@@ -139,8 +140,7 @@ export default function useProposalForm(
       router.replace(`/dashboard/my-proposals/${message}`)
 
     } catch(err) {
-
-      toast.error(err)
+      toast.error(getErrorMessage(err))
       return
     } finally {
       setSpinner(false)

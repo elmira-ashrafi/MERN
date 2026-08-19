@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { apiFetch } from "@/lib/api"
 import GuestOnly from "@/components/wrappers/users/GuestOnly"
+import { getErrorMessage } from "@/lib/strings"
 
 const Register = () => {
 
@@ -51,7 +52,7 @@ const Register = () => {
 
         } catch(err) {
             //show error message
-            toast.error(err.message, {position: "top-left"});
+            toast.error(getErrorMessage(err), {position: "top-left"});
         } finally {
             setSpinner(false);
         }

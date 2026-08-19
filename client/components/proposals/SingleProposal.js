@@ -1,5 +1,6 @@
 import ServerProtectedDashboardLayout from "@/components/wrappers/users/ServerProtectedDashboardLayout"
 import { apiFetch } from "@/lib/api"
+import { getErrorMessage } from "@/lib/strings"
 import { SyncOutlined } from "@ant-design/icons"
 import Image from "next/image"
 import Link from "next/link"
@@ -78,7 +79,7 @@ export default function SingleProposal({data, user, error}) {
       router.replace('/dashboard/proposal/' + data._id);
 
     } catch(err) {
-      toast.error(err);
+      toast.error(getErrorMessage(err));
     } finally {
       setSpinner(false);
     }

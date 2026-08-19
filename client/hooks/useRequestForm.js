@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { handleFetch } from "@/lib/api";
+import { getErrorMessage } from "@/lib/strings";
 
 const MAX_FILES = 5;
 const ALLOWED_MIMES = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
@@ -249,8 +250,8 @@ export function useRequestForm({
 
       router.replace('/dashboard/my-requests/' + message);
 
-    } catch {
-      toast.error("something went wrong! please try again.");
+    } catch(err) {
+      toast.error(getErrorMessage(err));
     } finally {
       setBtnSpinner(false);
     }

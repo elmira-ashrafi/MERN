@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { apiFetch } from "@/lib/api";
 import GuestOnly from "@/components/wrappers/users/GuestOnly.js";
 import { useRouter } from "next/router";
+import { getErrorMessage } from "@/lib/strings";
 
 const ForgotPassword = () => {
   //prepare form states
@@ -45,14 +46,13 @@ const ForgotPassword = () => {
       }
 
       //show successfull message
-      toast.success(data.message, { position: "top-left" });
+      toast.success(getErrorMessage(err), { position: "top-left" });
 
       //check email flag as sent
       setEmailSent(true);
       setEmailHolder(email);
       setEmail("");
     } catch (err) {
-      //empty fields and show error
       toast.error(err.message, { position: "top-left" });
       setEmail("");
     } finally {
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
         toast.success("confirmation succeed! now enter your new password");
       }
     } catch {
-      toast.error("something went wrong! please try again");
+      toast.error(getErrorMessage(err));
       setCode("");
     } finally {
       setSpinner(false);
@@ -128,7 +128,7 @@ const ForgotPassword = () => {
       router.replace("/login");
     } catch (err) {
       //handle error
-      toast.error(err.message);
+      toast.error(getErrorMessage(err));
     } finally {
       //empty password fields always
       setPassword("");
