@@ -162,7 +162,6 @@ export function getServerProps(path) {
             };
 
         } catch (err){
-            console.log(err)
             return failed("something failed! please try again later");
         }
     }

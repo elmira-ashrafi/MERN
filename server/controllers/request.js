@@ -246,7 +246,6 @@ export const editRequest = async (req, res, next) => {
       return res.status(200).json({ok: true, message: request._id});
 
     } catch(err) {
-      console.log(err)
       return next(err);
     }
 }

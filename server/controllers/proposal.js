@@ -127,7 +127,6 @@ export const editProposal = async (req, res, next) => {
     return res.status(200).json({ok: true, message: proposal._id})
 
   } catch(err) {
-    console.log(err)
     next(err)
   }
 }
@@ -156,7 +155,6 @@ export const deleteProposal = async (req, res, next) => {
     return res.status(200).json({ok: true, message: "proposal deleted successfully"});
 
   } catch(err) {
-    console.log(err)
     next(err)
   }
 }
@@ -179,7 +177,6 @@ export const acceptProposal = async (req, res, next) => {
     return res.status(200).json({ok: true, message: "proposal accepted successfully"});
 
   } catch(err) {
-    console.log(err)
     next(err)
   }
 }

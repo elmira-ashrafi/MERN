@@ -43,7 +43,6 @@ export const sendCodeToEmail = async (req, res, next) => {
       `your reset code is ${code}`,
       html,
     );
-    console.log(info);
     // the previous code stays valid unless this one actually went out
     if (!info || !info.accepted?.length) {
       return res

@@ -6,13 +6,14 @@ import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashb
 import { Context } from "@/context/auth";
 import { handleFetch } from "@/lib/api";
 import { apiFetch } from "@/lib/api";
+import { getErrorMessage } from "@/lib/strings";
 
 const EditProfile = () => {
 
     //get user data from Context
     const {state: {user, authReady}, dispatch} = useContext(Context);
     const location = user?.requesterProfile?.location;
-console.log(user)
+
     //show popup if location=false param is set
     const router = useRouter();
     const popupRef = useRef(false)
@@ -179,7 +180,7 @@ console.log(user)
                 setConfirmPassword('');
             }
         } catch(err) {
-            toast.error(globalFetchFailureMsg);
+            toast.error(getErrorMessage(err) || globalFetchFailureMsg);
         } finally {
             setBtnSpinner(false);
         }

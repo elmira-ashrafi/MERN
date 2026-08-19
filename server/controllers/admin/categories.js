@@ -6,7 +6,6 @@ const SLUG_MAX_LENGTH = 10;
 export const listCategories = async (req, res, next) => {
   try{
     const categories = await Category.find().exec()
-console.log(categories)
     return res.status(200).json({ok: true, message: categories})
   } catch(err) {
     next(err)
@@ -34,10 +33,9 @@ export const createCategory = async (req, res, next) => {
     if(slug) categoryData.slug = slug
 
     const category = await new Category(categoryData).save()
-console.log(category)
     return res.status(201).json({ok: true, message: category});
 
-  } catch(err) {console.log(err)
+  } catch(err) {
     if(err?.code === 11000) {
       return res.status(400).json({ok: false, message: "current cat exists"})
     }
