@@ -3,7 +3,8 @@ import { requireAuth, requireAdmin } from "../controllers/auth.js"
 import {
     listCountries, listProvinces, listCities,
     createCountry, createProvince, createCity,
-    updateCountry, updateProvince, updateCity
+    updateCountry, updateProvince, updateCity,
+    deleteCountry, deleteProvince, deleteCity
 } from "../controllers/admin/locations.js"
 import { listUsers, setUserProviderRole } from "../controllers/admin/users.js"
 import { listRequests, countRequestsByStatus, setRequestStatus } from "../controllers/admin/requests.js"
@@ -22,15 +23,18 @@ router.use('/admin', requireAuth, requireAdmin);
 // locations
 router.get('/admin/countries', listCountries);
 router.post('/admin/countries', createCountry);
-router.patch('/admin/countries/:id', updateCountry)
+router.patch('/admin/countries/:id', updateCountry);
+router.delete('/admin/countries/:id', deleteCountry);
 
 router.get('/admin/provinces', listProvinces);
 router.post('/admin/provinces', createProvince);
 router.patch('/admin/provinces/:id', updateProvince);
+router.delete('/admin/provinces/:id', deleteProvince);
 
 router.get('/admin/cities', listCities);
 router.post('/admin/cities', createCity);
 router.patch('/admin/cities/:id', updateCity);
+router.delete('/admin/cities/:id', deleteCity);
 
 // users
 router.get('/admin/users', listUsers);

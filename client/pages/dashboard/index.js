@@ -2,11 +2,12 @@ import ProtectedDashboardLayout from "@/components/wrappers/users/ProtectedDashb
 import { handleFetch } from "@/lib/api"
 import { SyncOutlined } from "@ant-design/icons"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 const Dashboard = () => {
 
-  const [requestSpinner, setRequestSpinner] = useState(false)
-  const [proposalSpinner, setProposalSpinner] = useState(false)
+  const [spinner, setspinner] = useState(false)
+  const [providerApplications, setProviderApplications] = useState([])
   const [requests, setRequests] = useState([])
   const [proposals, setProposals] = useState([])
   const globalFetchFailureMessage = 'failed to fetch data'
@@ -14,26 +15,37 @@ const Dashboard = () => {
   useEffect(() => {
     (async () => {
       await Promise.all([
-        handleFetch(setRequestSpinner, '/api/my-requests', {}, globalFetchFailureMessage, setRequests),
-        handleFetch(setProposalSpinner, '/api/my-proposals', [], globalFetchFailureMessage, setProposals),
+        handleFetch(setspinner, '/api/my-requests', {}, globalFetchFailureMessage, setRequests),
+        handleFetch(setspinner, '/api/my-proposals', {}, globalFetchFailureMessage, setProposals),
+        handleFetch(setspinner, '/api/provider-application', {}, globalFetchFailureMessage, setProviderApplications),
       ])
     })()
   }, [])
+
+  const cards = [
+    {label: "requests you submited", href: "/dashboard/my-requests", count: requests.length},
+    {label: "proposals you offered", href: "/dashboard/my-proposals", count: proposals.length},
+    {label: "applications to be provider", href: "/dashboard/become-provider", count: providerApplications.length}
+  ];
 
     return (
         <ProtectedDashboardLayout>
             <div className="row px-2 row-gap-2 justify-content-center column-gap-2">
               <h1>welcome to dashboard</h1>
-              {requestSpinner ? <SyncOutlined spin /> : (
-                <div className="col-12 col-md-3 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
-                  <strong>{requests.length}</strong>
-                  <span>request(s) submitted</span>
-                </div>
-              )}
-              {proposalSpinner ? <SyncOutlined spin /> : (
-                <div className="col-12 col-md-3 d-flex flex-column align-items-center border bg-primary rounded-2 text-white p-2">
-                  <strong>{proposals.length}</strong>
-                  <span>proposal(s) appealed</span>
+              {spinner && <SyncOutlined spin className="fs-3 mt-4" />}
+
+              {!spinner && (
+                <div className="d-flex column-gap-3 mt-4">
+                  {cards.map(card => (
+                    <Link
+                      key={card.href}
+                      href={card.href}
+                      className={`border rounded-4 p-4 flex-fill text-center text-decoration-none`}
+                    >
+                      <div className={`fs-1 fw-bold`}>{card.count}</div>
+                      <div className="fs-6">{card.label}</div>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

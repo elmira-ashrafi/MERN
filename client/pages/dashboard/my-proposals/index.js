@@ -8,10 +8,14 @@ import Link from "next/link";
 import { getErrorMessage, trimChars } from "@/lib/strings";
 import { toast } from "react-toastify";
 import { apiFetch } from "@/lib/api";
+import { useRouter } from "next/router";
+import { Spin } from "antd";
 
 const MyProposals = () => {
 
   const {state: {user}} = useContext(Context);
+
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false)
   const [proposals, setProposals] = useState([])
@@ -21,8 +25,16 @@ const MyProposals = () => {
 
     if(!user) return;
 
-    handleFetch(setLoading, '/api/my-proposals', {}, 'something went wrong! please check your connectivity', setProposals);
+    if(!user.role.includes("Provider")) {
+      toast.error("you should be a provider to have proposals");
+      router.replace('/dashboard/become-provider');
+    }
 
+  }, [user, router])
+
+  useEffect(() => {
+    if(!user) return;
+    handleFetch(setLoading, '/api/my-proposals', {}, 'something went wrong! please check your connectivity', setProposals);
   }, [user])
 
   const deleteProposal = async (_id) => {
@@ -65,6 +77,8 @@ const MyProposals = () => {
     }
   }
 
+  if(!user.role.includes("Provider")) return <Spin fullscreen />
+
   return (
     <ProtectedDashboardLayout>
       <div style={{border: "1px solid rgba(0, 0, 0, 0.2)", padding: "20px", borderRadius: "8px", width: '80%', margin: "100px auto"}} className="container position-relative">
@@ -101,7 +115,7 @@ const MyProposals = () => {
           </div>
         ))}
 
-        {!loading && proposals.length === 0 && <h2 className="mt-5 text-center">no request submited yet</h2>}
+        {!loading && proposals.length === 0 && <h2 className="mt-5 text-center">no proposal submited yet</h2>}
       </div>
     </ProtectedDashboardLayout>
   )

@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose"
+import mongoose, { isValidObjectId, mongo, Mongoose } from "mongoose"
 import Country from "../../models/country.js"
 import Province from "../../models/province.js"
 import City from "../../models/city.js"
@@ -243,6 +243,65 @@ export const updateCity = async (req, res, next) => {
       return res.status(400).json({ok: false, message: "city with the same name or code already exists!"})
     }
 
+    next(err)
+  }
+}
+
+export const deleteCountry = async (req, res, next) => {
+  try {
+    const {id} = req.params
+
+    if(!mongoose.isValidObjectId(id)) return res.status(400).json({ok: false, message: "invalid country"});
+
+    const provinceExists = await Province.findOne({country: id}).exec()
+
+    if(provinceExists) return res.status(400).json({ok: false, message: "this country has linked provinces! please remove them first"});
+
+    const deletingCountry = await Country.findOneAndDelete({_id: id});
+
+    if(!deletingCountry) return res.status(404).json({ok: false, message: "country not found"});
+
+    return res.status(200).json({ok: true, message: "country deleted"});
+
+  } catch(err) {
+    next(err)
+  }
+}
+
+export const deleteProvince = async (req, res, next) => {
+  try {
+    const {id} = req.params
+
+    if(!mongoose.isValidObjectId(id)) return res.status(400).json({ok: false, message: "invalid province"});
+
+    const cityExists = await City.findOne({province: id}).exec()
+
+    if(cityExists) return res.status(400).json({ok: false, message: "this province has linked cities! please remove them first"});
+
+    const deletingProvince = await Province.findOneAndDelete({_id: id});
+
+    if(!deletingProvince) return res.status(404).json({ok: false, message: "province not found"});
+
+    return res.status(200).json({ok: true, message: "province deleted"});
+
+  } catch(err) {
+    next(err)
+  }
+}
+
+export const deleteCity = async (req, res, next) => {
+  try {
+    const {id} = req.params
+
+    if(!mongoose.isValidObjectId(id)) return res.status(400).json({ok: false, message: "invalid city"});
+
+    const deletingCity = await City.findOneAndDelete({_id: id});
+
+    if(!deletingCity) return res.status(404).json({ok: false, message: "city not found"});
+
+    return res.status(200).json({ok: true, message: "city deleted"});
+
+  } catch(err) {
     next(err)
   }
 }

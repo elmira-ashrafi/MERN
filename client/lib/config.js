@@ -4,3 +4,18 @@
  * that cookies stay same-origin.
  */
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000/api";
+
+export const locationsPluralMap = {
+  country: {
+    plural: "countries",
+    parent: null
+  },
+  province: {
+    plural: "provinces",
+    parent: "country"
+  },
+  city: {
+    plural: "cities",
+    parent: "province"
+  }
+}
