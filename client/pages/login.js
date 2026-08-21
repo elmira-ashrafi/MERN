@@ -128,7 +128,7 @@ const Login = () => {
               <p className="text-center">forgot your password? <strong><Link href="/forgot-password">reset password</Link></strong></p>
           </form>
 
-          {isDev && (
+          {(
             <div className="mt-4 pt-4 border-top">
               <p className="text-secondary fs-small text-center">development shortcuts — signs in as the first account with that role</p>
               <div className="d-flex column-gap-2 row-gap-2 flex-wrap">
