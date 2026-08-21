@@ -27,7 +27,6 @@ const Requests = () => {
       setLoading(true);
 
       try {
-        // only approved, still-open requests come back from this endpoint
         const params = new URLSearchParams();
         if(category) params.set('category', category);
         if(city) params.set('city', city);

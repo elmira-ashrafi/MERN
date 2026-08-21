@@ -9,7 +9,8 @@ import {
   currentUser,
   confirmCode,
   setNewPassword,
-  getProfilePicture
+  getProfilePicture,
+  devLogin
 } from "../controllers/auth.js";
 import { rateLimit } from "../utils/rateLimit.js";
 import { avatarUploadMiddleware } from "../services/upload.service.js";
@@ -38,6 +39,8 @@ router.get("/current-user", requireAuth, currentUser);
 router.get('/profile-picture', requireAuth, getProfilePicture)
 router.post("/register", authLimiter, register);
 router.post("/login", authLimiter, loginLimiter, login);
+// the handler itself 404s unless NODE_ENV is development
+router.post("/dev-login", authLimiter, devLogin);
 router.post("/logout", logout);
 router.post("/confirm-code", authLimiter, confirmCode);
 router.post("/new-password", authLimiter, setNewPassword);

@@ -2,7 +2,7 @@ import crypto from "crypto"
 import jwt from "jsonwebtoken"
 import { expressjwt } from "express-jwt"
 import mongoose from "mongoose"
-import User from "../models/user.js"
+import User, { USER_ROLES } from "../models/user.js"
 import Country from "../models/country.js"
 import Province from "../models/province.js"
 import City from "../models/city.js"
@@ -159,6 +159,37 @@ export const login = async (req, res, next) => {
         }
 
         res.cookie("token", signToken(user._id, remember), tokenCookieOptions(remember));
+
+        return res.json({ok: true, user: sanitizeUser(user)});
+
+    } catch(err) {
+        return next(err);
+    }
+}
+
+/*
+ * Signs in as the oldest account holding a given role, with no password. That is an
+ * authentication bypass by definition, so it answers 404 outside development — the route stays
+ * mounted but behaves exactly like a URL that was never registered.
+ */
+export const devLogin = async (req, res, next) => {
+    if(isProduction) return res.status(404).json({ok: false, message: "not found"});
+
+    try {
+        const { role } = req.body;
+
+        if(!USER_ROLES.includes(role)) {
+            return res.status(400).json({ok: false, message: "unknown role"});
+        }
+
+        // role is an array field, so an equality match means "contains this role"
+        const user = await User.findOne({role}).sort({createdAt: 1}).exec();
+
+        if(!user) {
+            return res.status(404).json({ok: false, message: `no ${role} account exists in the database`});
+        }
+
+        res.cookie("token", signToken(user._id, false), tokenCookieOptions(false));
 
         return res.json({ok: true, user: sanitizeUser(user)});
 

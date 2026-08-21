@@ -1,0 +1,45 @@
+.footer {
+    margin-top: 4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    background: #f4f8ff;
+    color: #495057;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--bs-primary);
+}
+
+.tagline {
+    max-width: 34ch;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.heading {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6c757d;
+    margin-bottom: 0.75rem;
+}
+
+.link {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: 0.9rem;
+    color: #495057;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: var(--bs-primary);
+}
+
+.bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.8rem;
+    color: #6c757d;
+}

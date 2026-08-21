@@ -7,6 +7,15 @@ import { apiFetch } from "@/lib/api"
 import GuestOnly from '@/components/wrappers/users/GuestOnly.js'
 import { getErrorMessage } from "@/lib/strings"
 
+// shortcuts for local development only, stripped from a production build along with the buttons
+const QUICK_LOGINS = [
+    {role: "Requester", label: "login as requester", email: "requester@gmail.com"},
+    {role: "Provider", label: "login as provider", email: "provider@gmail.com"},
+    {role: "Admin", label: "login as admin", email: "admin@gmail.com"}
+];
+
+const isDev = process.env.NODE_ENV !== "production";
+
 const Login = () => {
 
     //prepare global context
@@ -17,6 +26,34 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [remember, setRemember] = useState(false);
     const [spinner, setSpinner] = useState(false);
+    const [quickRole, setQuickRole] = useState("");
+
+    //sign in as the first account carrying the given role, no credentials needed
+    const handleQuickLogin = async role => {
+        try {
+            setQuickRole(role);
+
+            const res = await apiFetch('/api/dev-login', {
+                method: "POST",
+                body: JSON.stringify({role})
+            });
+            const data = await res.json();
+
+            if(!res.ok || !data.ok) {
+                throw new Error(data.message || 'an error occured');
+            }
+
+            toast.success(`signed in as ${data.user.name}`, {position: "top-left"});
+
+            //GuestOnly performs the redirect once the context knows about the user
+            dispatch({type: "SET_USER", payload: {user: data.user}});
+
+        } catch(err) {
+            toast.error(getErrorMessage(err), {position: "top-left"});
+        } finally {
+            setQuickRole("");
+        }
+    }
 
     //handle user login
     const handleLoginFormSubmit = async e => {
@@ -90,6 +127,28 @@ const Login = () => {
               <p className="text-center mb-0">don&apos;t have an account? <strong><Link href="/register">register</Link></strong></p>
               <p className="text-center">forgot your password? <strong><Link href="/forgot-password">reset password</Link></strong></p>
           </form>
+
+          {isDev && (
+            <div className="mt-4 pt-4 border-top">
+              <p className="text-secondary fs-small text-center">development shortcuts — signs in as the first account with that role</p>
+              <div className="d-flex column-gap-2 row-gap-2 flex-wrap">
+                {QUICK_LOGINS.map(shortcut => (
+                  <button
+                    key={shortcut.role}
+                    type="button"
+                    disabled={Boolean(quickRole) || spinner}
+                    onClick={() => handleQuickLogin(shortcut.role)}
+                    className="border rounded-4 p-3 flex-fill text-center bg-white"
+                  >
+                    <div className="fw-bold">
+                      {quickRole === shortcut.role ? <SyncOutlined spin /> : shortcut.label}
+                    </div>
+                    <div className="fs-small text-secondary">{shortcut.email}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </GuestOnly>

@@ -1,5 +1,6 @@
 body {
-  overflow-x: hidden;
+  /* clip, not hidden: overflow-x hidden turns body into a scroll container and breaks ScrollTrigger pinning */
+  overflow-x: clip;
 }
 
 a {

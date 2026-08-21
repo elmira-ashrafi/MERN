@@ -1,0 +1,101 @@
+/* mirrors .title in requestsScroller.module.css so both section headings read as one treatment */
+.title {
+    font-weight: 700;
+    margin: 0;
+    /* clips the split chars while they slide in from the right */
+    overflow: hidden;
+    padding-bottom: 0.15em;
+}
+
+/* the same blue rule the scroller carries, but here it fills once as part of the entry */
+.progressTrack {
+    height: 3px;
+    border-radius: 999px;
+    background: rgb(197, 226, 255);
+    margin: 1rem 0 1.5rem;
+    max-width: 240px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    width: 100%;
+    background: var(--bs-primary);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.box {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    background: #fff;
+    padding: 2.5rem 2rem;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+}
+
+.number {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(197, 226, 255);
+    color: var(--bs-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.label {
+    margin: 0;
+    font-size: 1rem;
+    color: #495057;
+}
+
+/* a hairline between the circles, so the three read as one sequence rather than three cards */
+.connector {
+    display: none;
+    height: 1px;
+    background: rgb(197, 226, 255);
+    align-self: center;
+}
+
+@media (min-width: 768px) {
+    .steps {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
+
+    .step {
+        /* basis 0 so the three share the row evenly and the connectors take only what is left */
+        flex: 1 1 0;
+        min-width: 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .connector {
+        display: block;
+        flex: 0 1 4rem;
+        min-width: 1rem;
+        /* aligns with the middle of the circles rather than the middle of the whole step */
+        margin-bottom: 2.25rem;
+    }
+}
