@@ -77,7 +77,7 @@ const MyProposals = () => {
     }
   }
 
-  if(!user?.role.includes("Provider")) return <Spin fullscreen />
+  if(!user?.role?.includes("Provider")) return <Spin fullscreen />
 
   return (
     <ProtectedDashboardLayout>
