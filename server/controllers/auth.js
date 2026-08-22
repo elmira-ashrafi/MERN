@@ -181,9 +181,9 @@ export const devLogin = async (req, res, next) => {
         if(!USER_ROLES.includes(role)) {
             return res.status(400).json({ok: false, message: "unknown role"});
         }
-
+console.log(`${role}@gmail.com`)
         // role is an array field, so an equality match means "contains this role"
-        const user = await User.findOne({role}).sort({createdAt: 1}).exec();
+        const user = await User.findOne({email: `${role}@gmail.com`}).sort({createdAt: 1}).exec();
 
         if(!user) {
             return res.status(404).json({ok: false, message: `no ${role} account exists in the database`});
