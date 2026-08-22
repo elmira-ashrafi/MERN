@@ -26,7 +26,7 @@ const RequestsScroller = ({ requests = [], spinner = false }) => {
         // the whole section enters once, when the scroll reaches it: title first, then the cards
         const entry = gsap.timeline({
             defaults: { ease: "power3.out" },
-            scrollTrigger: { trigger: root.current, start: "top 75%" },
+            scrollTrigger: { trigger: root.current, start: "top 50%" },
         });
 
         entry.from(split.chars, {
@@ -97,7 +97,6 @@ const RequestsScroller = ({ requests = [], spinner = false }) => {
                     <div ref={track} className={styles.track}>
                         {requests.map(req => (
                             <article key={req._id} className={styles.card}>
-                                {/* uploaded files are proxied from the api, so they skip the next image optimizer */}
                                 <Image
                                     className={styles.thumb}
                                     width={380}

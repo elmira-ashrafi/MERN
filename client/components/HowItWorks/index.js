@@ -38,14 +38,14 @@ const HowItWorks = () => {
         // the rule draws itself once the heading has landed, then hands over to the steps
         entry.to(progress.current, {
             scaleX: 1,
-            duration: 0.6,
+            duration: 0.5,
             ease: "power2.inOut",
         });
 
         entry.from(`.${styles.step}`, {
             opacity: 0,
             y: 24,
-            duration: 0.6,
+            duration: 0.3,
             stagger: 0.15,
         });
 
