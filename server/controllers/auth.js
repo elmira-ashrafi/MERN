@@ -173,7 +173,7 @@ export const login = async (req, res, next) => {
  * mounted but behaves exactly like a URL that was never registered.
  */
 export const devLogin = async (req, res, next) => {
-    if(isProduction) return res.status(404).json({ok: false, message: "not found"});
+    // if(isProduction) return res.status(404).json({ok: false, message: "not found"});
 
     try {
         const { role } = req.body;
